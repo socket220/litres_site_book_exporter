@@ -168,7 +168,7 @@
     "message": "Table of contents"
   },
   "subtitle": {
-    "message": "Version 0.4.0 · images and automatic capture"
+    "message": "Version 0.6.0 · images and automatic capture"
   },
   "openBook": {
     "message": "Open a book in the Litres reader."
@@ -232,5 +232,62 @@
   },
   "printError": {
     "message": "Some images could not be loaded. Reload this page before printing."
+  },
+  "metadata": {
+    "message": "Book details and cover"
+  },
+  "bookTitle": {
+    "message": "Title"
+  },
+  "author": {
+    "message": "Author"
+  },
+  "language": {
+    "message": "Book language (ru, en, …)"
+  },
+  "publisher": {
+    "message": "Publisher"
+  },
+  "year": {
+    "message": "Publication year"
+  },
+  "descriptionField": {
+    "message": "Description"
+  },
+  "cover": {
+    "message": "Cover image (PNG, JPEG, WebP; up to 10 MB)"
+  },
+  "removeCover": {
+    "message": "Remove cover"
+  },
+  "saveMetadata": {
+    "message": "Save book details"
+  },
+  "metadataSaved": {
+    "message": "Book details saved. Export the book again to apply them."
+  },
+  "coverReady": {
+    "message": "Cover ready. Save book details or export."
+  },
+  "invalidMetadata": {
+    "message": "Enter a title, a valid language code, and a four-digit year or leave the year empty."
+  },
+  "invalidCover": {
+    "message": "Choose a PNG, JPEG or WebP image up to 10 MB and 24 megapixels."
+  },
+  "editorHelp": {
+    "message": "Book details open in a separate tab. Covers are saved automatically; use Save book details for text fields. Then return to the reader to export."
+  },
+  "coverSaved": {
+    "message": "Cover saved"
+  },
+  "noCover": {
+    "message": "No saved cover"
+  },
+  "savingCover": {
+    "message": "Saving cover…"
+  },
+  "chooseCover": {
+    "message": "Choose cover image"
   }
 }

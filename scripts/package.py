@@ -7,12 +7,13 @@ ROOT = Path(__file__).resolve().parents[1]
 RUNTIME = (
     "manifest.json", "core.js", "content.js", "background.js",
     "epub.js", "popup.html", "popup.css", "popup.js",
+    "metadata.html", "metadata.js", "metadata.css",
     "i18n.js", "formats.js", "print.html", "print.js", "print.css",
     "_locales/en/messages.json", "_locales/ru/messages.json",
 )
 SOURCE = RUNTIME + (
     "README.md", ".gitignore", "docs/INSTALL-XPI.md", "docs/TESTING.md",
-    "scripts/package.py", "tests/core.test.cjs", "tests/formats.browser.cjs",
+    "scripts/package.py", "tests/core.test.cjs", "tests/formats.browser.cjs", "tests/styles.browser.cjs",
 )
 
 def build():

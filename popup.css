@@ -2,3 +2,5 @@ body{font:14px/1.45 system-ui,sans-serif;width:355px;padding:18px;margin:0;color
 #auto{width:100%;background:#16665b;color:white;margin:10px 0}.buttons button{flex:1}body{font-size:13px;padding:14px}p{margin:9px 0}
 
 .speed-label{margin-top:8px}select{font:inherit;padding:4px;border:1px solid #cbd5e1;border-radius:5px;margin-left:6px}body{padding:12px}p{margin:7px 0}
+
+#metadataPanel{margin-top:12px}#metadataPanel input[type=text],#metadataPanel textarea{box-sizing:border-box;width:100%;font:inherit;padding:5px}#metadataPanel textarea{min-height:65px}#coverPreview{max-width:110px;max-height:160px;margin:8px 0}#metadataPanel button{margin:6px 0}#coverFile{max-width:100%}

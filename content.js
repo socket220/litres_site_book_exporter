@@ -144,7 +144,7 @@ browser.runtime.onMessage.addListener(async message=>{
   }
  }else if(message.type==='STOP')stop();
  else if(message.type!=='STATE')return;
- return{active,error,id:currentId(),mode,status,speed,version:'0.4.0'};
+ return{active,error,id:currentId(),mode,status,speed,version:'0.6.0'};
 });
 addEventListener('pagehide',stop);
 })();

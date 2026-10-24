@@ -31,6 +31,10 @@ async function imageRequest(m,sender){
  return{ok:true,mime,base64:btoa(binary)};
 }
 
+function validateCover(cover){
+ if(cover===null)return;
+ if(cover?.mime!=='image/png'||typeof cover.base64!=='string'||cover.base64.length>14000000||!/^iVBORw0KGgo[A-Za-z0-9+/]*={0,2}$/.test(cover.base64))throw Error(L.msg('invalidCover'));
+}
 async function dispatch(m,sender) {
  if(m.type==='SAVE') {
   const url=new URL(sender.url||'about:blank');
@@ -39,9 +43,27 @@ async function dispatch(m,sender) {
   const b=ReaderCore.merge(await get(m.snapshot.id),m.snapshot);
   await browser.storage.local.set({[key(b.id)]:b});return {ok:true};
  }
- if(sender.tab)throw Error(L.msg('This_command_is_only_available_to_extension_pages'));
+ if(sender.tab&&!(sender.url||'').startsWith(browser.runtime.getURL('')))throw Error(L.msg('This_command_is_only_available_to_extension_pages'));
  checkId(m.id);const b=await get(m.id);
  if(m.type==='REPORT')return {ok:true,title:b?.title,report:ReaderCore.report(b)};
+ if(m.type==='OPEN_METADATA'){if(!b)throw Error(L.msg('Capture_some_text_first'));await browser.tabs.create({url:browser.runtime.getURL('metadata.html')+'?id='+encodeURIComponent(m.id)});return {ok:true};}
+ if(m.type==='COVER_SAVE'){
+  if(!b)throw Error(L.msg('Capture_some_text_first'));
+  validateCover(m.cover);b.cover=m.cover?{mime:'image/png',base64:m.cover.base64,filename:ReaderCore.clean(m.cover.filename||'').slice(0,255)}:null;
+  await browser.storage.local.set({[key(b.id)]:b});return {ok:true};
+ }
+ if(m.type==='METADATA_GET')return {ok:true,metadata:ReaderCore.metadata(b||{title:''}),cover:b?.cover||null};
+ if(m.type==='METADATA_SAVE'){
+  if(!b)throw Error(L.msg('Capture_some_text_first'));
+  const metadata={};
+  for(const field of ['title','author','language','publisher','year','description']){
+   if(typeof m.metadata?.[field]!=='string'||m.metadata[field].length>(field==='description'?10000:500))throw Error(L.msg('invalidMetadata'));
+   metadata[field]=ReaderCore.clean(m.metadata[field]).trim();
+  }
+  if(!metadata.title||! /^[a-zA-Z]{2,8}(?:-[a-zA-Z0-9]{1,8})*$/.test(metadata.language)||(metadata.year&&!/^\d{4}$/.test(metadata.year)))throw Error(L.msg('invalidMetadata'));
+  b.metadata=metadata;
+  await browser.storage.local.set({[key(b.id)]:b});return {ok:true};
+ }
  if(m.type==='EXPORT') {
   if(!b)throw Error(L.msg('Capture_some_text_first'));
   const format=m.format||'epub';
@@ -52,7 +74,7 @@ async function dispatch(m,sender) {
   }
   const blob=format==='fb2'?ReaderFormats.fb2(b):ReaderEpub.build(b),url=URL.createObjectURL(blob);
   try {
-   const filename=(b.title.replace(/[<>:"/\\|?*\x00-\x1f]/g,'_').slice(0,110)||'Book')+'.'+format;
+   const filename=(ReaderCore.metadata(b).title.replace(/[<>:"/\\|?*\x00-\x1f]/g,'_').slice(0,110)||'Book')+'.'+format;
    const id=await browser.downloads.download({url,filename,saveAs:true});downloads.set(id,url);
   }catch(e){URL.revokeObjectURL(url);throw e;}
   return {ok:true};

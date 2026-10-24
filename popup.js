@@ -2,12 +2,12 @@
 L.localize();
 const $=id=>document.getElementById(id);
 let tab,id,ready=false,count=0,refreshing=false,exporting=false;
-function controls(active){$('speed').disabled=active;$('auto').disabled=!ready||active;$('fromStart').disabled=active;$('start').disabled=!ready||active;$('stop').disabled=!ready||!active;$('export').disabled=exporting||!count||!$('ack').checked;}
+function controls(active){$('editMetadata').disabled=!count;$('speed').disabled=active;$('auto').disabled=!ready||active;$('fromStart').disabled=active;$('start').disabled=!ready||active;$('stop').disabled=!ready||!active;$('export').disabled=exporting||!count||!$('ack').checked;}
 async function refresh() {
  if(refreshing||!id)return;refreshing=true;
  try {
   let state;
-  try{state=await browser.tabs.sendMessage(tab.id,{type:'STATE'});if(state?.version!=='0.4.0')throw Error(L.msg('Outdated_version'));ready=true;if(state.active)$('speed').value=state.speed||'normal';}
+  try{state=await browser.tabs.sendMessage(tab.id,{type:'STATE'});if(state?.version!=='0.6.0')throw Error(L.msg('Outdated_version'));ready=true;if(state.active)$('speed').value=state.speed||'normal';}
   catch{ready=false;state={active:false,error:L.msg('Reload_the_book_tab_after_installing_the_extension')};}
   const result=await browser.runtime.sendMessage({type:'REPORT',id});if(!result.ok)throw Error(result.error);
   const r=result.report;count=r.count;
@@ -45,3 +45,6 @@ $('export').addEventListener('click',async()=>{
  $('speed').addEventListener('change',()=>browser.storage.local.set({speed:$('speed').value}).catch(e=>{$('error').textContent=e.message;}));
  await refresh();setInterval(refresh,1500);
 })().catch(e=>{$('error').textContent=e.message;});
+
+
+$('editMetadata').addEventListener('click',async()=>{try{const r=await browser.runtime.sendMessage({type:'OPEN_METADATA',id});if(!r.ok)throw Error(r.error);}catch(e){$('error').textContent=e.message;}});

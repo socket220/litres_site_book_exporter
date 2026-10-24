@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>litres book exporter</title><link rel="stylesheet" href="popup.css"><link rel="stylesheet" href="metadata.css"></head><body><h1 data-i18n="metadata"></h1><p data-i18n="editorHelp"></p><fieldset id="metadataPanel" disabled>
+<label><span data-i18n="bookTitle"></span><input id="metaTitle" type="text" maxlength="500"></label>
+<label><span data-i18n="author"></span><input id="metaAuthor" type="text" maxlength="500"></label>
+<label><span data-i18n="language"></span><input id="metaLanguage" type="text" maxlength="35" placeholder="ru"></label>
+<label><span data-i18n="publisher"></span><input id="metaPublisher" type="text" maxlength="500"></label>
+<label><span data-i18n="year"></span><input id="metaYear" type="text" maxlength="4" inputmode="numeric"></label>
+<label><span data-i18n="descriptionField"></span><textarea id="metaDescription" maxlength="10000"></textarea></label>
+<label><span data-i18n="cover"></span><input id="coverFile" hidden type="file" accept="image/png,image/jpeg,image/webp"></label><button id="chooseCover" type="button" data-i18n="chooseCover"></button>
+<p id="coverStatus" role="status"></p><img id="coverPreview" hidden alt=""><button id="removeCover" type="button" data-i18n="removeCover"></button>
+<button id="saveMetadata" type="button" disabled data-i18n="saveMetadata"></button><p id="metadataStatus" role="status"></p>
+</fieldset><p id="error" role="alert"></p><script src="i18n.js"></script><script src="metadata.js"></script></body></html>
