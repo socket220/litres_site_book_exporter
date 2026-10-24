@@ -1,7 +1,17 @@
-# Проверки
+# Test coverage
 
-`node --test tests/core.test.cjs` запускает переносимые проверки на синтетических данных: объединение блоков, отсутствие повторов, конфликты, разделение книг, диагностика пропусков, упаковка EPUB и бинарные изображения. Зависимости не нужны; требуется Node.js 20+.
+Run `node --test tests/core.test.cjs` with Node.js 20+. These dependency-free tests cover parsing of runtime scripts, merge deduplication and conflicts, book isolation, missing content reports, EPUB image packaging, removal of the statistics page, locale coverage and stable add-on identity.
 
-При разработке также проверялись извлечение текста из сохранённых HTML, встраивание 14 растровых изображений, автоматический проход на имитации читалки, пауза и продолжение, медленная загрузка, зависший переход, изменение количества страниц, ошибки изображений и панель управления. Эти проверки выполнялись в изолированном браузере. Их локальные материалы не включены в репозиторий.
+Run `node tests/formats.browser.cjs` with Playwright and Chromium available. Set `CHROME_PATH` to an installed Chromium executable if needed. Synthetic fixtures cover:
 
-Автоматические проверки не заменяют проверку в живой читалке Firefox. Полнота книги, одобрение AMO, epubcheck и доставка через Send to Kindle ими не подтверждаются.
+- Well-formed FB2 XML with Cyrillic text, metadata, formatting, lists, tables and embedded images.
+- A printable DOM that excludes scripts, event handlers and remote image requests.
+- English and Russian popups, format selection and export messages.
+- The PDF page loading saved content and images before enabling its print button.
+- Print controls hidden under print media, plus a generated sample PDF.
+
+Artifacts are written to a temporary directory. No user books are included in the tests or packages.
+
+Prior local checks also exercised automatic page turning, pause/resume, delayed or stalled transitions and image failures using a simulated reader. The current release does not change capture timing or navigation.
+
+These checks do not confirm live Firefox behavior, AMO validation/signing, full FB2 XSD compliance, EPUBCheck, book completeness or delivery to Kindle. The native Firefox print dialog still needs manual verification.

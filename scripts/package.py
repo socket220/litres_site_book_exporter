@@ -7,10 +7,12 @@ ROOT = Path(__file__).resolve().parents[1]
 RUNTIME = (
     "manifest.json", "core.js", "content.js", "background.js",
     "epub.js", "popup.html", "popup.css", "popup.js",
+    "i18n.js", "formats.js", "print.html", "print.js", "print.css",
+    "_locales/en/messages.json", "_locales/ru/messages.json",
 )
 SOURCE = RUNTIME + (
     "README.md", ".gitignore", "docs/INSTALL-XPI.md", "docs/TESTING.md",
-    "scripts/package.py", "tests/core.test.cjs",
+    "scripts/package.py", "tests/core.test.cjs", "tests/formats.browser.cjs",
 )
 
 def build():
@@ -25,7 +27,7 @@ def build():
     target = ROOT / "dist"
     target.mkdir(exist_ok=True)
     for suffix, names in (("-unsigned.xpi", RUNTIME), (".zip", SOURCE)):
-        output = target / ("litres-epub-v" + version + suffix)
+        output = target / ("litres-book-exporter-v" + version + suffix)
         with ZipFile(output, "w", ZIP_DEFLATED) as archive:
             for filename in names:
                 archive.write(ROOT / filename, filename)

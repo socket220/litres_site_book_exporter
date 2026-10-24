@@ -1,0 +1,236 @@
+{
+  "Capture_stopped": {
+    "message": "Сбор остановлен."
+  },
+  "Capture_paused_Progress_saved": {
+    "message": "Сбор приостановлен. Прогресс сохранён."
+  },
+  "A_different_book_is_open_Restart_capture": {
+    "message": "Открыта другая книга. Запустите сбор заново."
+  },
+  "The_image_is_empty_or_too_large": {
+    "message": "Изображение пустое или слишком большое."
+  },
+  "The_image_exceeds_the_MB_limit": {
+    "message": "Изображение больше лимита 10 МБ."
+  },
+  "The_page_changed_while_saving_Capture_this_page_again": {
+    "message": "Страница изменилась во время сохранения. Повторите сбор на этой странице."
+  },
+  "Images_not_loaded": {
+    "message": "Не загружено изображений: "
+  },
+  "The_tab_is_hidden_Return_to_the_book_and_resume_automatic_capture": {
+    "message": "Вкладка скрыта. Вернитесь к книге и продолжите автосбор."
+  },
+  "The_page_count_changed_Restore_the_original_settings_and_restart_": {
+    "message": "Количество страниц изменилось. Верните исходные настройки и запустите проход с начала."
+  },
+  "The_page_did_not_load_within_seconds_Check_the_reader_and_resume_": {
+    "message": "Страница не загрузилась за 20 секунд. Проверьте читалку и продолжите сбор."
+  },
+  "Page_counter_not_found": {
+    "message": "Не найден счётчик страниц."
+  },
+  "Automatic_capture_page": {
+    "message": "Автосбор: страница "
+  },
+  "of": {
+    "message": " из "
+  },
+  "The_reading_position_changed_manually_Resume_capture_from_the_cur": {
+    "message": "Позиция чтения изменилась вручную. Продолжите сбор с текущей страницы."
+  },
+  "Last_page_reached_Check_the_report_before_exporting": {
+    "message": "Достигнута последняя страница. Проверьте отчёт перед экспортом."
+  },
+  "The_next_page_button_is_unavailable": {
+    "message": "Кнопка следующей страницы недоступна."
+  },
+  "Page_transition_limit_exceeded_Capture_paused": {
+    "message": "Превышено число переходов. Сбор приостановлен."
+  },
+  "Automatic_capture_paused_due_to_an_error": {
+    "message": "Автосбор приостановлен из-за ошибки."
+  },
+  "The_URL_has_no_book_identifier": {
+    "message": "В адресе нет идентификатора книги."
+  },
+  "Preparing_automatic_capture": {
+    "message": "Подготовка автосбора…"
+  },
+  "Manual_capture_enabled": {
+    "message": "Ручной сбор включён."
+  },
+  "Media_not_included": {
+    "message": "Медиа не перенесено: "
+  },
+  "Link_or_footnote_target_not_included": {
+    "message": "Ссылка или сноска без перенесённой цели"
+  },
+  "Text_container_not_found_Wait_for_the_book_to_load": {
+    "message": "Контейнер текста не найден. Дождитесь загрузки книги."
+  },
+  "The_text_has_not_loaded_yet_or_the_reader_structure_has_changed": {
+    "message": "Текст ещё не загружен или структура читалки изменилась."
+  },
+  "Book_identifiers_do_not_match": {
+    "message": "Идентификаторы книг не совпадают."
+  },
+  "Images_not_loadedAlt": {
+    "message": "Изображений не загружено: "
+  },
+  "Links_to_missing_footnotes_or_blocks": {
+    "message": "Ссылок на несобранные сноски/блоки: "
+  },
+  "The_page_count_changed_page_coverage_cannot_be_compared": {
+    "message": "Количество страниц менялось; покрытие страниц несопоставимо."
+  },
+  "Table_of_contents_not_found_open_it_in_the_reader_during_capture": {
+    "message": "Оглавление не найдено: откройте его в читалке во время сбора."
+  },
+  "Invalid_book_identifier": {
+    "message": "Некорректный идентификатор книги."
+  },
+  "Invalid_image_request_source": {
+    "message": "Недопустимый источник запроса изображения."
+  },
+  "Unsupported_image_domain": {
+    "message": "Домен изображения не поддерживается: "
+  },
+  "Image_HTTP": {
+    "message": "Изображение: HTTP "
+  },
+  "The_image_exceeds_MB": {
+    "message": "Изображение больше 10 МБ."
+  },
+  "The_response_is_not_a_supported_raster_image": {
+    "message": "Ответ не является поддерживаемым растровым изображением."
+  },
+  "The_text_source_does_not_match_the_book": {
+    "message": "Источник текста не совпадает с книгой."
+  },
+  "This_command_is_only_available_to_extension_pages": {
+    "message": "Команда доступна только панели расширения."
+  },
+  "Capture_some_text_first": {
+    "message": "Сначала соберите текст."
+  },
+  "Unknown_command": {
+    "message": "Неизвестная команда."
+  },
+  "No_saved_text": {
+    "message": "Нет сохранённого текста."
+  },
+  "Outdated_version": {
+    "message": "Старая версия"
+  },
+  "Reload_the_book_tab_after_installing_the_extension": {
+    "message": "Обновите вкладку книги после установки расширения."
+  },
+  "Book": {
+    "message": "Книга №"
+  },
+  "Capture_enabled_You_can_close_this_panel": {
+    "message": "Сбор включён. Можно закрыть эту панель."
+  },
+  "Blocks": {
+    "message": "Блоков: "
+  },
+  "characters": {
+    "message": " · символов: "
+  },
+  "Missing_headings": {
+    "message": "Несобранных заголовков: "
+  },
+  "Text_conflicts": {
+    "message": "Конфликтов текста: "
+  },
+  "Switch_to_the_Litres_reader_tab_and_reopen_this_panel": {
+    "message": "Переключитесь на вкладку читалки Литрес и откройте панель снова."
+  },
+  "description": {
+    "message": "Локальный экспорт отображаемых книг Литрес в EPUB, FB2 или PDF."
+  },
+  "pages": {
+    "message": "Отмечено страниц: "
+  },
+  "images": {
+    "message": "Изображений: "
+  },
+  "mediaMissing": {
+    "message": "Медиа не перенесено"
+  },
+  "imageMissing": {
+    "message": "Изображение не загружено"
+  },
+  "contents": {
+    "message": "Оглавление"
+  },
+  "subtitle": {
+    "message": "Версия 0.4.0 · изображения и автосбор"
+  },
+  "openBook": {
+    "message": "Откройте книгу в читалке Литрес."
+  },
+  "connecting": {
+    "message": "Подключение…"
+  },
+  "fromStart": {
+    "message": "Автосбор с первой страницы"
+  },
+  "speed": {
+    "message": "Скорость"
+  },
+  "fast": {
+    "message": "Быстро — от 0,3 с"
+  },
+  "normal": {
+    "message": "Обычно — от 0,6 с"
+  },
+  "careful": {
+    "message": "Осторожно — от 2,5 с"
+  },
+  "auto": {
+    "message": "Автосбор"
+  },
+  "manual": {
+    "message": "Собирать вручную"
+  },
+  "pause": {
+    "message": "Пауза"
+  },
+  "help": {
+    "message": "Для продолжения снимите галочку «с первой страницы». Держите вкладку книги активной, не меняйте шрифт и размер окна."
+  },
+  "report": {
+    "message": "Проверка собранного текста"
+  },
+  "warning": {
+    "message": "Полнота книги не подтверждена. Проверьте отчёт перед экспортом."
+  },
+  "ack": {
+    "message": "Я понимаю, что экспорт может содержать только часть книги."
+  },
+  "format": {
+    "message": "Формат экспорта"
+  },
+  "export": {
+    "message": "Экспортировать"
+  },
+  "pdfHelp": {
+    "message": "PDF откроет страницу печати. Выберите «Сохранить в PDF» в диалоге Firefox."
+  },
+  "print": {
+    "message": "Сохранить PDF / Печать"
+  },
+  "preparing": {
+    "message": "Подготовка изображений…"
+  },
+  "invalidFormat": {
+    "message": "Неподдерживаемый формат экспорта."
+  },
+  "printError": {
+    "message": "Некоторые изображения не загрузились. Обновите страницу перед печатью."
+  }
+}

@@ -21,23 +21,20 @@ function zip(files) {
  return new Blob([...parts,...central,end],{type:'application/epub+zip'});
 }
 function build(book) {
- const C=g.ReaderCore,E=C.escape,report=C.report(book);
+ const C=g.ReaderCore,E=C.escape;
  const blocks=Object.values(book.blocks).sort((a,b)=>C.compare(a.id,b.id));
- if(!blocks.length)throw Error('Нет сохранённого текста.');
- const hasGaps=report.missing.length>0||report.missingImages.length>0,title=book.title+(hasGaps?' — неполный сбор':' — полнота не проверена');
+ if(!blocks.length)throw Error(L.msg('No_saved_text'));
  const split=book.title.indexOf(' - '),author=split>0?book.title.slice(0,split):'';
- const warnings=['Сборщик EPUB 0.3.0.', 'Изображений встроено: '+report.imagesSaved+' из '+report.imageCount+'.','Это экспорт собранных фрагментов. Полнота книги не подтверждена.','Собрано блоков: '+report.count+'.','Заголовков оглавления без собранного текста: '+report.missing.length+'.','Конфликтов содержимого: '+report.conflicts+'.',...report.issues];
  const page=(name,body)=>'<?xml version="1.0" encoding="utf-8"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ru" lang="ru"><head><title>'+E(name)+'</title><link rel="stylesheet" href="style.css" /></head><body>'+body+'</body></html>';
  const heads=blocks.filter(b=>/^h[1-6]$/.test(b.tag));
- const nav=page('Оглавление','<nav epub:type="toc" id="toc"><h1>Оглавление собранных разделов</h1><ol><li><a href="notice.xhtml">Сведения об экспорте</a></li>'+heads.map(b=>'<li><a href="book.xhtml#'+C.anchor(b.id)+'">'+E(b.text)+'</a></li>').join('')+'</ol></nav>');
+ const nav=page(L.msg('contents'),'<nav epub:type="toc" id="toc"><h1>'+E(L.msg('contents'))+'</h1><ol>'+heads.map(b=>'<li><a href="book.xhtml#'+C.anchor(b.id)+'">'+E(b.text)+'</a></li>').join('')+'</ol></nav>');
  const usedImages=[...new Set(blocks.flatMap(b=>(b.images||[]).map(i=>i.key)))].filter(k=>book.assets?.[k]);
  const imageManifest=usedImages.map((k,i)=>'<item id="image'+i+'" href="images/'+E(k)+'" media-type="image/png"/>').join('');
- const imageHtml=b=>b.html.replace(/<img src="images\/([^"]+)"[^>]*\/>/g,(tag,k)=>book.assets?.[k]?tag:'<span>[Изображение не загружено]</span>');
+ const imageHtml=b=>b.html.replace(/<img src="images\/([^"]+)"[^>]*\/>/g,(tag,k)=>book.assets?.[k]?tag:'<span>['+L.msg('imageMissing')+']</span>');
  const files=[
  ['mimetype','application/epub+zip'],
  ['META-INF/container.xml','<?xml version="1.0"?><container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container"><rootfiles><rootfile full-path="EPUB/package.opf" media-type="application/oebps-package+xml" /></rootfiles></container>'],
- ['EPUB/package.opf','<?xml version="1.0" encoding="utf-8"?><package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="book-id"><metadata xmlns:dc="http://purl.org/dc/elements/1.1/"><dc:identifier id="book-id">urn:uuid:'+crypto.randomUUID()+'</dc:identifier><dc:title>'+E(title)+'</dc:title><dc:language>ru</dc:language>'+(author?'<dc:creator>'+E(author)+'</dc:creator>':'')+'<meta property="dcterms:modified">'+new Date().toISOString().replace(/\.\d{3}Z$/,'Z')+'</meta></metadata><manifest><item id="notice" href="notice.xhtml" media-type="application/xhtml+xml"/><item id="book" href="book.xhtml" media-type="application/xhtml+xml"/><item id="nav" href="nav.xhtml" properties="nav" media-type="application/xhtml+xml"/><item id="style" href="style.css" media-type="text/css"/>'+imageManifest+'</manifest><spine><itemref idref="notice"/><itemref idref="book"/></spine></package>'],
- ['EPUB/notice.xhtml',page('Сведения об экспорте','<h1>Сведения об экспорте</h1>'+warnings.map(w=>'<p>'+E(w)+'</p>').join('')+(hasGaps?'<h2>Не собраны заголовки</h2><ul>'+report.missing.map(t=>'<li>'+E(t)+'</li>').join('')+'</ul>':''))],
+ ['EPUB/package.opf','<?xml version="1.0" encoding="utf-8"?><package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="book-id"><metadata xmlns:dc="http://purl.org/dc/elements/1.1/"><dc:identifier id="book-id">urn:uuid:'+crypto.randomUUID()+'</dc:identifier><dc:title>'+E(book.title)+'</dc:title><dc:language>ru</dc:language>'+(author?'<dc:creator>'+E(author)+'</dc:creator>':'')+'<meta property="dcterms:modified">'+new Date().toISOString().replace(/\.\d{3}Z$/,'Z')+'</meta></metadata><manifest><item id="book" href="book.xhtml" media-type="application/xhtml+xml"/><item id="nav" href="nav.xhtml" properties="nav" media-type="application/xhtml+xml"/><item id="style" href="style.css" media-type="text/css"/>'+imageManifest+'</manifest><spine><itemref idref="book"/></spine></package>'],
  ['EPUB/book.xhtml',page(book.title,blocks.map(imageHtml).join('\n'))],
  ['EPUB/nav.xhtml',nav],
  ['EPUB/style.css','img{max-width:100%;height:auto}body{line-height:1.45}p{margin:0 0 .6em}h1,h2{break-before:page}h1,h2,h3,h4{break-after:avoid}blockquote{margin:1em 1.5em}table{border-collapse:collapse}td,th{border:1px solid;padding:.3em}']

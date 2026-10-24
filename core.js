@@ -29,8 +29,8 @@ function serialize(el,issues,inHeading=false,media=null) {
  return '<img src="images/'+key+'" alt="'+escape(el.getAttribute('alt')||'')+'" />';
 }
 if(['img','canvas','video','audio'].includes(tag)) {
-  issues.push('Медиа не перенесено: '+tag);
-  return '<span>[Медиа не перенесено'+(el.getAttribute('alt')?': '+escape(el.getAttribute('alt')):'')+']</span>';
+  issues.push(L.msg('Media_not_included')+tag);
+  return '<span>['+L.msg('mediaMissing')+(el.getAttribute('alt')?': '+escape(el.getAttribute('alt')):'')+']</span>';
  }
  const heading=/^h[1-6]$/.test(tag);
  const body=[...el.childNodes].map(n=>serialize(n,issues,inHeading||heading,media)).join('');
@@ -43,7 +43,7 @@ if(['img','canvas','video','audio'].includes(tag)) {
   const href=el.getAttribute('href')||'';
   if(href.startsWith('#') && validId(href.slice(1)))attrs+=' href="#'+anchor(href.slice(1))+'"';
   else if(/^https?:\/\//i.test(href))attrs+=' href="'+escape(href)+'"';
-  else if(href)issues.push('Ссылка или сноска без перенесённой цели');
+  else if(href)issues.push(L.msg('Link_or_footnote_target_not_included'));
  }
  if(['td','th'].includes(tag))for(const name of ['colspan','rowspan']) {
   const v=el.getAttribute(name);if(/^[1-9]\d{0,2}$/.test(v||''))attrs+=' '+name+'="'+v+'"';
@@ -52,7 +52,7 @@ if(['img','canvas','video','audio'].includes(tag)) {
 }
 function extract(doc,bookId) {
  const root=doc.querySelector('[data-testid="virtualContent"]')||doc.querySelector('#virtual-content');
- if(!root)throw Error('Контейнер текста не найден. Дождитесь загрузки книги.');
+ if(!root)throw Error(L.msg('Text_container_not_found_Wait_for_the_book_to_load'));
  const candidates=[...root.querySelectorAll('[id]')].filter(e=>validId(e.id));
  const blocks=candidates.filter(el=>{
   for(let p=el.parentElement;p && p!==root;p=p.parentElement)if(validId(p.id))return false;
@@ -61,14 +61,14 @@ function extract(doc,bookId) {
   const issues=[],media={prefix:anchor(el.id),items:[]},html=serialize(el,issues,false,media);
   return {id:el.id,tag:el.tagName.toLowerCase(),text:textOf(el),html,issues:[...new Set(issues)],images:media.items};
  }).filter(b=>b.text||b.issues.length||b.images.length);
- if(!blocks.length)throw Error('Текст ещё не загружен или структура читалки изменилась.');
+ if(!blocks.length)throw Error(L.msg('The_text_has_not_loaded_yet_or_the_reader_structure_has_changed'));
  const slider=doc.querySelector('[data-testid="readerProgressBar"]');
  const page=Number(slider?.value||slider?.getAttribute('value'))||null,total=Number(slider?.max)||null;
  const toc=[...doc.querySelectorAll('[data-testid="tocItem"]')].map(textOf).filter(Boolean);
  return {id:bookId,title:norm(doc.title),blocks,toc,page,total};
 }
 function merge(previous,snapshot) {
- if(previous && previous.id!==snapshot.id)throw Error('Идентификаторы книг не совпадают.');
+ if(previous && previous.id!==snapshot.id)throw Error(L.msg('Book_identifiers_do_not_match'));
  const b=previous||{id:snapshot.id,title:snapshot.title,blocks:{},toc:[],pages:[],totals:[],conflicts:[],started:new Date().toISOString()};
  b.assets=b.assets||{}; Object.assign(b.assets,snapshot.assets||{});
  for(const block of snapshot.blocks) {
@@ -89,10 +89,10 @@ function report(b) {
  const issues=[...new Set(blocks.flatMap(x=>x.issues))];
  const imageKeys=[...new Set(blocks.flatMap(x=>(x.images||[]).map(i=>i.key)))];
  const missingImages=imageKeys.filter(k=>!b.assets?.[k]);
- if(missingImages.length)issues.push("Изображений не загружено: "+missingImages.length);
- if(broken)issues.push('Ссылок на несобранные сноски/блоки: '+broken);
- if(b.totals.length>1)issues.push('Количество страниц менялось; покрытие страниц несопоставимо.');
- if(!b.toc.length)issues.push('Оглавление не найдено: откройте его в читалке во время сбора.');
+ if(missingImages.length)issues.push(L.msg('Images_not_loadedAlt')+missingImages.length);
+ if(broken)issues.push(L.msg('Links_to_missing_footnotes_or_blocks')+broken);
+ if(b.totals.length>1)issues.push(L.msg('The_page_count_changed_page_coverage_cannot_be_compared'));
+ if(!b.toc.length)issues.push(L.msg('Table_of_contents_not_found_open_it_in_the_reader_during_capture'));
  return {imageCount:imageKeys.length,imagesSaved:imageKeys.length-missingImages.length,missingImages, count:blocks.length,characters:blocks.reduce((n,x)=>n+x.text.length,0),missing:b.toc.filter(x=>!headings.has(norm(x))),issues,conflicts:b.conflicts.length,pages:b.pages,total:b.totals.length===1?b.totals[0]:null};
 }
 g.ReaderCore={clean,norm,escape,anchor,compare,extract,merge,report};

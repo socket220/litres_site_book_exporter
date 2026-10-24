@@ -1,0 +1,236 @@
+{
+  "Capture_stopped": {
+    "message": "Capture stopped."
+  },
+  "Capture_paused_Progress_saved": {
+    "message": "Capture paused. Progress saved."
+  },
+  "A_different_book_is_open_Restart_capture": {
+    "message": "A different book is open. Restart capture."
+  },
+  "The_image_is_empty_or_too_large": {
+    "message": "The image is empty or too large."
+  },
+  "The_image_exceeds_the_MB_limit": {
+    "message": "The image exceeds the 10 MB limit."
+  },
+  "The_page_changed_while_saving_Capture_this_page_again": {
+    "message": "The page changed while saving. Capture this page again."
+  },
+  "Images_not_loaded": {
+    "message": "Images not loaded: "
+  },
+  "The_tab_is_hidden_Return_to_the_book_and_resume_automatic_capture": {
+    "message": "The tab is hidden. Return to the book and resume automatic capture."
+  },
+  "The_page_count_changed_Restore_the_original_settings_and_restart_": {
+    "message": "The page count changed. Restore the original settings and restart from the beginning."
+  },
+  "The_page_did_not_load_within_seconds_Check_the_reader_and_resume_": {
+    "message": "The page did not load within 20 seconds. Check the reader and resume capture."
+  },
+  "Page_counter_not_found": {
+    "message": "Page counter not found."
+  },
+  "Automatic_capture_page": {
+    "message": "Automatic capture: page "
+  },
+  "of": {
+    "message": " of "
+  },
+  "The_reading_position_changed_manually_Resume_capture_from_the_cur": {
+    "message": "The reading position changed manually. Resume capture from the current page."
+  },
+  "Last_page_reached_Check_the_report_before_exporting": {
+    "message": "Last page reached. Check the report before exporting."
+  },
+  "The_next_page_button_is_unavailable": {
+    "message": "The next-page button is unavailable."
+  },
+  "Page_transition_limit_exceeded_Capture_paused": {
+    "message": "Page transition limit exceeded. Capture paused."
+  },
+  "Automatic_capture_paused_due_to_an_error": {
+    "message": "Automatic capture paused due to an error."
+  },
+  "The_URL_has_no_book_identifier": {
+    "message": "The URL has no book identifier."
+  },
+  "Preparing_automatic_capture": {
+    "message": "Preparing automatic capture…"
+  },
+  "Manual_capture_enabled": {
+    "message": "Manual capture enabled."
+  },
+  "Media_not_included": {
+    "message": "Media not included: "
+  },
+  "Link_or_footnote_target_not_included": {
+    "message": "Link or footnote target not included"
+  },
+  "Text_container_not_found_Wait_for_the_book_to_load": {
+    "message": "Text container not found. Wait for the book to load."
+  },
+  "The_text_has_not_loaded_yet_or_the_reader_structure_has_changed": {
+    "message": "The text has not loaded yet, or the reader structure has changed."
+  },
+  "Book_identifiers_do_not_match": {
+    "message": "Book identifiers do not match."
+  },
+  "Images_not_loadedAlt": {
+    "message": "Images not loaded: "
+  },
+  "Links_to_missing_footnotes_or_blocks": {
+    "message": "Links to missing footnotes or blocks: "
+  },
+  "The_page_count_changed_page_coverage_cannot_be_compared": {
+    "message": "The page count changed; page coverage cannot be compared."
+  },
+  "Table_of_contents_not_found_open_it_in_the_reader_during_capture": {
+    "message": "Table of contents not found: open it in the reader during capture."
+  },
+  "Invalid_book_identifier": {
+    "message": "Invalid book identifier."
+  },
+  "Invalid_image_request_source": {
+    "message": "Invalid image request source."
+  },
+  "Unsupported_image_domain": {
+    "message": "Unsupported image domain: "
+  },
+  "Image_HTTP": {
+    "message": "Image: HTTP "
+  },
+  "The_image_exceeds_MB": {
+    "message": "The image exceeds 10 MB."
+  },
+  "The_response_is_not_a_supported_raster_image": {
+    "message": "The response is not a supported raster image."
+  },
+  "The_text_source_does_not_match_the_book": {
+    "message": "The text source does not match the book."
+  },
+  "This_command_is_only_available_to_extension_pages": {
+    "message": "This command is only available to extension pages."
+  },
+  "Capture_some_text_first": {
+    "message": "Capture some text first."
+  },
+  "Unknown_command": {
+    "message": "Unknown command."
+  },
+  "No_saved_text": {
+    "message": "No saved text."
+  },
+  "Outdated_version": {
+    "message": "Outdated version"
+  },
+  "Reload_the_book_tab_after_installing_the_extension": {
+    "message": "Reload the book tab after installing the extension."
+  },
+  "Book": {
+    "message": "Book #"
+  },
+  "Capture_enabled_You_can_close_this_panel": {
+    "message": "Capture enabled. You can close this panel."
+  },
+  "Blocks": {
+    "message": "Blocks: "
+  },
+  "characters": {
+    "message": " · characters: "
+  },
+  "Missing_headings": {
+    "message": "Missing headings: "
+  },
+  "Text_conflicts": {
+    "message": "Text conflicts: "
+  },
+  "Switch_to_the_Litres_reader_tab_and_reopen_this_panel": {
+    "message": "Switch to the Litres reader tab and reopen this panel."
+  },
+  "description": {
+    "message": "Export displayed Litres books locally to EPUB, FB2 or PDF."
+  },
+  "pages": {
+    "message": "Captured pages: "
+  },
+  "images": {
+    "message": "Images: "
+  },
+  "mediaMissing": {
+    "message": "Media not included"
+  },
+  "imageMissing": {
+    "message": "Image not loaded"
+  },
+  "contents": {
+    "message": "Table of contents"
+  },
+  "subtitle": {
+    "message": "Version 0.4.0 · images and automatic capture"
+  },
+  "openBook": {
+    "message": "Open a book in the Litres reader."
+  },
+  "connecting": {
+    "message": "Connecting…"
+  },
+  "fromStart": {
+    "message": "Capture from the first page"
+  },
+  "speed": {
+    "message": "Speed"
+  },
+  "fast": {
+    "message": "Fast — from 0.3 s"
+  },
+  "normal": {
+    "message": "Normal — from 0.6 s"
+  },
+  "careful": {
+    "message": "Careful — from 2.5 s"
+  },
+  "auto": {
+    "message": "Automatic capture"
+  },
+  "manual": {
+    "message": "Manual capture"
+  },
+  "pause": {
+    "message": "Pause"
+  },
+  "help": {
+    "message": "To resume, uncheck “Capture from the first page”. Keep the book tab active and do not change the font or window size."
+  },
+  "report": {
+    "message": "Capture report"
+  },
+  "warning": {
+    "message": "Completeness is not verified. Check the report before exporting."
+  },
+  "ack": {
+    "message": "I understand that the export may contain only part of the book."
+  },
+  "format": {
+    "message": "Export format"
+  },
+  "export": {
+    "message": "Export"
+  },
+  "pdfHelp": {
+    "message": "PDF opens a print view. Select “Save to PDF” in the Firefox print dialog."
+  },
+  "print": {
+    "message": "Save as PDF / Print"
+  },
+  "preparing": {
+    "message": "Preparing images…"
+  },
+  "invalidFormat": {
+    "message": "Unsupported export format."
+  },
+  "printError": {
+    "message": "Some images could not be loaded. Reload this page before printing."
+  }
+}

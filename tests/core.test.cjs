@@ -7,7 +7,8 @@ const vm=require('node:vm');
 const {webcrypto}=require('node:crypto');
 const root=path.resolve(__dirname,'..');
 function runtime(){
- const ctx={TextEncoder,Blob,atob,btoa,crypto:webcrypto};
+ const messages=JSON.parse(fs.readFileSync(path.join(root,'_locales/en/messages.json'),'utf8'));
+ const ctx={TextEncoder,Blob,atob,btoa,crypto:webcrypto,L:{msg:key=>{assert(messages[key],key);return messages[key].message;}}};
  vm.createContext(ctx);
  for(const name of ['core.js','epub.js'])vm.runInContext(fs.readFileSync(path.join(root,name),'utf8'),ctx);
  return ctx;
@@ -20,7 +21,7 @@ function snapshot(blocks,extra={}){
 }
 test('runtime files parse and manifest references exist',()=>{
  const m=JSON.parse(fs.readFileSync(path.join(root,'manifest.json'),'utf8'));
- for(const n of [...m.background.scripts,...m.content_scripts.flatMap(s=>s.js),'popup.js']){
+ for(const n of [...m.background.scripts,...m.content_scripts.flatMap(s=>s.js),'popup.js','print.js']){
   new vm.Script(fs.readFileSync(path.join(root,n),'utf8'),{filename:n});
  }
  assert(fs.existsSync(path.join(root,m.browser_action.default_popup)));
@@ -41,7 +42,7 @@ test('report identifies missing headings, images and internal targets',()=>{
  const s=snapshot([block('/1/2.0','Example',{html:'<p><a href="#missing">Example</a></p>',images:[{key:'pic.png',src:'https://www.litres.ru/example.png'}]})],{toc:['Uncollected chapter']});
  const b=C.merge(null,s),r=C.report(b);
  assert.equal(r.missing.length,1);assert.equal(r.missingImages.length,1);
- assert(r.issues.some(v=>v.includes('сноски')));
+ assert(r.issues.some(v=>v.includes('footnotes')));
  C.merge(b,snapshot([],{assets:{'pic.png':{base64:'AA==',mime:'image/png'}},page:2}));
  assert.equal(C.report(b).imagesSaved,1);assert.equal(b.pages.length,2);
 });
@@ -63,10 +64,29 @@ test('EPUB embeds binary images with manifest references and flags missing image
  const b=C.merge(null,s),files=entries(Buffer.from(await E.build(b).arrayBuffer()));
  assert.equal([...files.keys()][0],'mimetype');
  assert.equal(files.get('mimetype').toString(),'application/epub+zip');
+ assert(!files.has('EPUB/notice.xhtml'));
+ assert.doesNotMatch(files.get('EPUB/nav.xhtml').toString(),/notice\.xhtml/);
+ assert.match(files.get('EPUB/package.opf').toString(),/<spine><itemref idref="book"\/><\/spine>/);
+ assert.match(files.get('EPUB/package.opf').toString(),/<dc:title>Example Author - Example Book<\/dc:title>/);
  assert.deepEqual(files.get('EPUB/images/pic.png'),Buffer.from(png,'base64'));
  assert.match(files.get('EPUB/package.opf').toString(),/href="images\/pic.png" media-type="image\/png"/);
  assert.match(files.get('EPUB/book.xhtml').toString(),/<img src="images\/pic.png"/);
  b.assets={};const partial=entries(Buffer.from(await E.build(b).arrayBuffer()));
  assert(!partial.has('EPUB/images/pic.png'));
- assert.match(partial.get('EPUB/book.xhtml').toString(),/Изображение не загружено/);
+ assert.match(partial.get('EPUB/book.xhtml').toString(),/Image not loaded/);
+});
+
+test('English and Russian catalogs cover every runtime message and preserve add-on identity',()=>{
+ const catalogs=['en','ru'].map(locale=>JSON.parse(fs.readFileSync(path.join(root,'_locales',locale,'messages.json'),'utf8')));
+ const keys=[];
+ for(const name of fs.readdirSync(root).filter(n=>/\.(js|html)$/.test(n))){
+  const source=fs.readFileSync(path.join(root,name),'utf8');
+  for(const match of source.matchAll(/L\.msg\('([^']+)'|data-i18n="([^"]+)"/g))keys.push(match[1]||match[2]);
+ }
+ for(const key of keys)for(const catalog of catalogs)assert(catalog[key]?.message,`Missing translation: ${key}`);
+ assert.deepEqual(Object.keys(catalogs[0]).sort(),Object.keys(catalogs[1]).sort());
+ const manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.json'),'utf8'));
+ assert.equal(manifest.default_locale,'en');
+ assert.equal(manifest.name,'litres book exporter');
+ assert.equal(manifest.browser_specific_settings.gecko.id,'local-reader-epub@example.invalid');
 });

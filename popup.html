@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><title>Сборщик EPUB</title><link rel="stylesheet" href="popup.css"></head><body>
-<h1>Сборщик EPUB</h1><p class="muted">Версия 0.3 · изображения и автосбор</p>
-<p id="title">Откройте книгу в читалке Литрес.</p>
-<p id="state" role="status" aria-live="polite">Подключение…</p>
-<label><input id="fromStart" type="checkbox" checked> Автосбор с первой страницы</label><label class="speed-label">Скорость <select id="speed"><option value="fast">Быстро — от 0,8 с</option><option value="normal" selected>Обычно — от 1,2 с</option><option value="careful">Осторожно — от 2,5 с</option></select></label><button id="auto" disabled>Автосбор</button><div class="buttons"><button id="start" disabled>Собирать вручную</button><button id="stop" disabled>Пауза</button></div>
-<p>Для продолжения автосбора снимите галочку «с первой страницы». Держите вкладку книги открытой, не меняйте шрифт и размер окна.</p>
-<div id="stats"></div><details><summary>Проверка собранного текста</summary><div id="details"></div></details>
-<p class="warning">Полнота книги не подтверждена. Проверьте отчёт перед экспортом.</p>
-<label><input id="ack" type="checkbox"> Я понимаю, что EPUB может содержать только часть книги.</label>
-<button id="export" disabled>Сохранить EPUB</button><p id="error" role="alert"></p>
-<script src="popup.js"></script></body></html>
+<html lang="en"><head><meta charset="utf-8"><title>litres book exporter</title><link rel="stylesheet" href="popup.css"></head><body>
+<h1>litres book exporter</h1><p class="muted" data-i18n="subtitle"></p>
+<p id="title" data-i18n="openBook"></p><p id="state" role="status" aria-live="polite" data-i18n="connecting"></p>
+<label><input id="fromStart" type="checkbox" checked> <span data-i18n="fromStart"></span></label>
+<label class="speed-label"><span data-i18n="speed"></span><select id="speed"><option value="fast" data-i18n="fast"></option><option value="normal" selected data-i18n="normal"></option><option value="careful" data-i18n="careful"></option></select></label>
+<button id="auto" disabled data-i18n="auto"></button><div class="buttons"><button id="start" disabled data-i18n="manual"></button><button id="stop" disabled data-i18n="pause"></button></div>
+<p data-i18n="help"></p><div id="stats"></div><details><summary data-i18n="report"></summary><div id="details"></div></details>
+<p class="warning" data-i18n="warning"></p><label><input id="ack" type="checkbox"> <span data-i18n="ack"></span></label>
+<label class="speed-label"><span data-i18n="format"></span><select id="format"><option value="epub">EPUB</option><option value="fb2">FB2</option><option value="pdf">PDF</option></select></label>
+<p id="pdfHelp" hidden data-i18n="pdfHelp"></p><button id="export" disabled data-i18n="export"></button><p id="error" role="alert"></p>
+<script src="i18n.js"></script><script src="popup.js"></script></body></html>
