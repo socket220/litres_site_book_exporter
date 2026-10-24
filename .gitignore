@@ -1,0 +1,11 @@
+dist/
+node_modules/
+__pycache__/
+*.epub
+*.fb2
+*.xpi
+*.zip
+.env
+.env.*
+.DS_Store
+Thumbs.db

@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><title>Сборщик EPUB</title><link rel="stylesheet" href="popup.css"></head><body>
+<h1>Сборщик EPUB</h1><p class="muted">Версия 0.3 · изображения и автосбор</p>
+<p id="title">Откройте книгу в читалке Литрес.</p>
+<p id="state" role="status" aria-live="polite">Подключение…</p>
+<label><input id="fromStart" type="checkbox" checked> Автосбор с первой страницы</label><label class="speed-label">Скорость <select id="speed"><option value="fast">Быстро — от 0,8 с</option><option value="normal" selected>Обычно — от 1,2 с</option><option value="careful">Осторожно — от 2,5 с</option></select></label><button id="auto" disabled>Автосбор</button><div class="buttons"><button id="start" disabled>Собирать вручную</button><button id="stop" disabled>Пауза</button></div>
+<p>Для продолжения автосбора снимите галочку «с первой страницы». Держите вкладку книги открытой, не меняйте шрифт и размер окна.</p>
+<div id="stats"></div><details><summary>Проверка собранного текста</summary><div id="details"></div></details>
+<p class="warning">Полнота книги не подтверждена. Проверьте отчёт перед экспортом.</p>
+<label><input id="ack" type="checkbox"> Я понимаю, что EPUB может содержать только часть книги.</label>
+<button id="export" disabled>Сохранить EPUB</button><p id="error" role="alert"></p>
+<script src="popup.js"></script></body></html>

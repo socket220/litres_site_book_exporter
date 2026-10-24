@@ -1,0 +1,46 @@
+{
+  "manifest_version": 2,
+  "name": "Локальный сборщик EPUB",
+  "version": "0.3.0",
+  "description": "Локальный сбор EPUB с изображениями и последовательным автоматическим перелистыванием.",
+  "permissions": [
+    "storage",
+    "downloads",
+    "https://*.litres.ru/*",
+    "https://*.litres.com/*"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "local-reader-epub@example.invalid",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": [
+          "websiteContent"
+        ]
+      }
+    }
+  },
+  "background": {
+    "scripts": [
+      "core.js",
+      "epub.js",
+      "background.js"
+    ]
+  },
+  "browser_action": {
+    "default_title": "Сборщик EPUB",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.litres.ru/static/reader/text/*"
+      ],
+      "js": [
+        "core.js",
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
