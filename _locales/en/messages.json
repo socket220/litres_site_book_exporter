@@ -168,7 +168,7 @@
     "message": "Table of contents"
   },
   "subtitle": {
-    "message": "Version 0.6.0 · images and automatic capture"
+    "message": "Version 0.6.1 · images and automatic capture"
   },
   "openBook": {
     "message": "Open a book in the Litres reader."
@@ -205,12 +205,6 @@
   },
   "report": {
     "message": "Capture report"
-  },
-  "warning": {
-    "message": "Completeness is not verified. Check the report before exporting."
-  },
-  "ack": {
-    "message": "I understand that the export may contain only part of the book."
   },
   "format": {
     "message": "Export format"

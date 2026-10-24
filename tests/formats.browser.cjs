@@ -45,7 +45,7 @@ const chrome=process.env.CHROME_PATH;
  });
  await ctx.addInitScript(({messages,locale})=>{
  globalThis.sent=[];
- globalThis.browser={i18n:{getMessage:k=>messages[k]?.message||'',getUILanguage:()=>locale},storage:{local:{get:async()=>({}),set:async()=>{}}},tabs:{query:async()=>[{id:1,url:'https://www.litres.ru/static/reader/text/?art=123'}],sendMessage:async()=>({version:'0.6.0',active:false})},runtime:{sendMessage:async m=>{sent.push(m);const saved=JSON.parse(localStorage.getItem('metadata')||'null')||{metadata:{title:'Test Book',author:'Test Author',language:'ru'},cover:null};if(m.type==='COVER_SAVE'){saved.cover=m.cover;localStorage.setItem('metadata',JSON.stringify(saved));}if(m.type==='METADATA_SAVE'){saved.metadata=m.metadata;localStorage.setItem('metadata',JSON.stringify(saved));}return m.type==='METADATA_GET'?{ok:true,...saved}:m.type==='REPORT'?{ok:true,title:'Test Book',report:{count:2,characters:20,pages:[1],total:2,imagesSaved:1,imageCount:1,missing:[],conflicts:0,issues:[]}}:{ok:true};}}};
+ globalThis.browser={i18n:{getMessage:k=>messages[k]?.message||'',getUILanguage:()=>locale},storage:{local:{get:async()=>({}),set:async()=>{}}},tabs:{query:async()=>[{id:1,url:'https://www.litres.ru/static/reader/text/?art=123'}],sendMessage:async()=>({version:'0.6.1',active:false})},runtime:{sendMessage:async m=>{sent.push(m);const saved=JSON.parse(localStorage.getItem('metadata')||'null')||{metadata:{title:'Test Book',author:'Test Author',language:'ru'},cover:null};if(m.type==='COVER_SAVE'){saved.cover=m.cover;localStorage.setItem('metadata',JSON.stringify(saved));}if(m.type==='METADATA_SAVE'){saved.metadata=m.metadata;localStorage.setItem('metadata',JSON.stringify(saved));}return m.type==='METADATA_GET'?{ok:true,...saved}:m.type==='REPORT'?{ok:true,title:'Test Book',report:{count:2,characters:20,pages:[1],total:2,imagesSaved:1,imageCount:1,missing:[],conflicts:0,issues:[]}}:{ok:true};}}};
  },{messages,locale});
  const p=await ctx.newPage();await p.goto('http://extension.test/popup.html');await p.waitForFunction(()=>document.getElementById('stats').textContent);
  assert.equal(await p.locator('h1').textContent(),'litres book exporter');
@@ -72,7 +72,7 @@ const chrome=process.env.CHROME_PATH;
  await reopened.reload();await reopened.waitForFunction(()=>!document.getElementById('metadataPanel').disabled);
  assert(!await reopened.locator('#coverPreview').isVisible());await reopened.close();
  await p.locator('#format').selectOption('pdf');assert(await p.locator('#pdfHelp').isVisible());
- await p.locator('#ack').check();await p.locator('#export').click();
+ assert(await p.locator('#export').isEnabled());await p.locator('#export').click();
  assert.equal(await p.evaluate(()=>sent.find(m=>m.type==='EXPORT').format),'pdf');
  await p.screenshot({path:path.join(output,'popup-'+locale+'.png'),fullPage:true});
  const fixture=await page.evaluate(()=>book);

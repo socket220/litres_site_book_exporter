@@ -1,6 +1,6 @@
 # litres book exporter
 
-Firefox extension for exporting displayed Litres reader content locally to EPUB, FB2, or PDF. Version **0.6.0**, Firefox **142+**.
+Firefox extension for exporting displayed Litres reader content locally to EPUB, FB2, or PDF. Version **0.6.1**, Firefox **142+**.
 
 ## Features
 
@@ -21,14 +21,14 @@ For temporary installation, unpack the source ZIP and open `about:debugging#/run
 
 For permanent installation, obtain a Mozilla-signed XPI. The generated `-unsigned.xpi` is for submission to Mozilla, not permanent local installation. See [signing instructions](docs/INSTALL-XPI.md).
 
-The add-on ID remains unchanged. Upload version 0.6.0 through the existing add-on's version management page, not as a new add-on. Reload the reader tab after updating.
+The add-on ID remains unchanged. Upload version 0.6.1 through the existing add-on's version management page, not as a new add-on. Reload the reader tab after updating.
 
 ## Usage
 
 1. Open a book at `https://www.litres.ru/static/reader/text/` and open the extension popup.
 2. Select a speed and start automatic capture. Keep the reader tab active; keep the font and window size unchanged.
 3. To resume, disable **Capture from the first page**. If the initial jump fails, move to the beginning manually.
-4. Check the report and acknowledge that the export may be incomplete. Click **Book details and cover** to open a persistent editor tab and edit the title, author, language, publisher, publication year and description. Choose a PNG/JPEG/WebP cover: it is saved immediately, with a persistent preview and filename. Save text fields with **Save book details**, then return to the reader to export. These settings are stored per book; closing the popup does not clear them.
+4. Check the capture report if needed. Export is available as soon as text has been captured. Click **Book details and cover** to open a persistent editor tab and edit the title, author, language, publisher, publication year and description. Choose a PNG/JPEG/WebP cover: it is saved immediately, with a persistent preview and filename. Save text fields with **Save book details**, then return to the reader to export. These settings are stored per book; closing the popup does not clear them.
 5. Select EPUB, FB2 or PDF and click **Export**. For PDF, use the print button on the new tab and choose the PDF destination. Disable browser headers and footers there if desired.
 
 Selecting a format does not require recapturing the book. Existing exported files are not modified. Book text is not translated; only the extension interface is localized.
@@ -61,7 +61,7 @@ Set `CHROME_PATH` to an installed Chromium executable if needed. Tests use synth
 
 ## Text formatting
 
-Version 0.6.0 captures computed CSS while reading the page. EPUB and PDF retain bold/italic, underline/strikethrough, super/subscripts, alignment, relative font sizes, line height, letter spacing, paragraph indentation and vertical margins. Accent colors and highlights are preserved, while the reader's base text color is omitted to avoid copying white night-mode text onto a white page. Fonts use portable serif/sans-serif/monospace families; font files are not embedded.
+Version 0.6.1 captures computed CSS while reading the page. EPUB and PDF retain bold/italic, underline/strikethrough, super/subscripts, alignment, relative font sizes, line height, letter spacing, paragraph indentation and vertical margins. Accent colors and highlights are preserved, while the reader's base text color is omitted to avoid copying white night-mode text onto a white page. Fonts use portable serif/sans-serif/monospace families; font files are not embedded.
 
 Nested formatting overrides are respected, including normal text inside a bold/italic span. Inline formatting inside major headings is retained. Ordered lists preserve their start number. FB2 maps supported styling to strong/emphasis/strikethrough/sup/sub/code, retains explicit line breaks and preformatted indentation, and keeps list markers. FB2 does not support the full CSS model: underline, exact sizes, colors, alignment and spacing are not faithfully transferable. Line breaks inside FB2 table cells are represented by separators.
 

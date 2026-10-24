@@ -2,12 +2,12 @@
 L.localize();
 const $=id=>document.getElementById(id);
 let tab,id,ready=false,count=0,refreshing=false,exporting=false;
-function controls(active){$('editMetadata').disabled=!count;$('speed').disabled=active;$('auto').disabled=!ready||active;$('fromStart').disabled=active;$('start').disabled=!ready||active;$('stop').disabled=!ready||!active;$('export').disabled=exporting||!count||!$('ack').checked;}
+function controls(active){$('editMetadata').disabled=!count;$('speed').disabled=active;$('auto').disabled=!ready||active;$('fromStart').disabled=active;$('start').disabled=!ready||active;$('stop').disabled=!ready||!active;$('export').disabled=exporting||!count;}
 async function refresh() {
  if(refreshing||!id)return;refreshing=true;
  try {
   let state;
-  try{state=await browser.tabs.sendMessage(tab.id,{type:'STATE'});if(state?.version!=='0.6.0')throw Error(L.msg('Outdated_version'));ready=true;if(state.active)$('speed').value=state.speed||'normal';}
+  try{state=await browser.tabs.sendMessage(tab.id,{type:'STATE'});if(state?.version!=='0.6.1')throw Error(L.msg('Outdated_version'));ready=true;if(state.active)$('speed').value=state.speed||'normal';}
   catch{ready=false;state={active:false,error:L.msg('Reload_the_book_tab_after_installing_the_extension')};}
   const result=await browser.runtime.sendMessage({type:'REPORT',id});if(!result.ok)throw Error(result.error);
   const r=result.report;count=r.count;
@@ -25,12 +25,11 @@ async function refresh() {
 for(const [button,type] of [['start','START'],['stop','STOP'],['auto','AUTO']])$(button).addEventListener('click',async()=>{
  try{await browser.tabs.sendMessage(tab.id,{type,fromStart:$('fromStart').checked,speed:$('speed').value});await refresh();}catch(e){$('error').textContent=e.message;}
 });
-$('ack').addEventListener('change',()=>{$('export').disabled=exporting||!count||!$('ack').checked;});
 $('export').addEventListener('click',async()=>{
  exporting=true;$('export').disabled=true;
  try{const r=await browser.runtime.sendMessage({type:'EXPORT',id,format:$('format').value});if(!r.ok)throw Error(r.error);}
  catch(e){$('error').textContent=e.message;}
- finally{exporting=false;$('export').disabled=exporting||!count||!$('ack').checked;}
+ finally{exporting=false;$('export').disabled=exporting||!count;}
 });
 (async()=>{
  [tab]=await browser.tabs.query({active:true,currentWindow:true});
