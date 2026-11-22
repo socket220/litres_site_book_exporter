@@ -1,6 +1,6 @@
 # litres book exporter
 
-Firefox extension for exporting displayed Litres reader content locally to EPUB, FB2, or PDF. Version **0.6.1**, Firefox **142+**.
+Firefox extension for exporting displayed Litres reader content locally to EPUB, FB2, or PDF. Version **0.7.0**, Firefox **142+**.
 
 ## Features
 
@@ -21,7 +21,7 @@ For temporary installation, unpack the source ZIP and open `about:debugging#/run
 
 For permanent installation, obtain a Mozilla-signed XPI. The generated `-unsigned.xpi` is for submission to Mozilla, not permanent local installation. See [signing instructions](docs/INSTALL-XPI.md).
 
-The add-on ID remains unchanged. Upload version 0.6.1 through the existing add-on's version management page, not as a new add-on. Reload the reader tab after updating.
+The add-on ID remains unchanged. Upload version 0.7.0 through the existing add-on's version management page, not as a new add-on. Reload the reader tab after updating.
 
 ## Usage
 
@@ -59,9 +59,21 @@ node tests/formats.browser.cjs
 
 Set `CHROME_PATH` to an installed Chromium executable if needed. Tests use synthetic data and write artifacts to a temporary directory. See [test coverage](docs/TESTING.md).
 
+## PDF reader: PDF to PDF
+
+On `https://www.litres.ru/static/reader/pdf/`, the popup switches to PDF capture. Start automatic capture from the first page and keep the reader tab active. The extension scrolls the reader, waits for loaded page images, and stores each numbered page locally in IndexedDB. Pause and resume are supported; saved pages survive reopening the popup and browser.
+
+Scanned and other image-based PDF pages are both supported. Export produces a downloadable PDF directly (no print dialog), with one image per page in numeric order. It uses the full pixel dimensions of the images loaded by the reader, without another lossy JPEG conversion. Increase reader zoom **before** starting if a higher resolution is needed; keep zoom and window size unchanged during a pass.
+
+Export is enabled only after the end of the available document was reached and all pages from 1 to the final observed page are present. This verifies the available reader sequence, not that a subscription or preview grants access to the complete original book. No internal book API, DRM keys, or undisplayed page URLs are requested.
+
+This initial mode reconstructs the visible page images, rather than downloading the original PDF. It does not preserve or create a searchable text layer, OCR, links, bookmarks, or original print dimensions. Page aspect ratios and loaded pixels are preserved; physical PDF size is calculated at 96 pixels per inch. Mixed portrait and landscape pages are supported. Reader image resolution limits the result. Per-page limit: 32 megapixels; stored compressed pages per book: 250 MB. Custom cover/metadata editing currently applies only to HTML-text exports.
+
+The adapter targets the current Litres PDF DOM (`#canvas.pdf_canvas` and numbered `content__page` images). It is tested against a synthetic lazy-loading fixture based on the reader's public source. The supplied real book required authentication (HTTP 401 in the test browser), so a full live Firefox pass is still required.
+
 ## Text formatting
 
-Version 0.6.1 captures computed CSS while reading the page. EPUB and PDF retain bold/italic, underline/strikethrough, super/subscripts, alignment, relative font sizes, line height, letter spacing, paragraph indentation and vertical margins. Accent colors and highlights are preserved, while the reader's base text color is omitted to avoid copying white night-mode text onto a white page. Fonts use portable serif/sans-serif/monospace families; font files are not embedded.
+Version 0.7.0 captures computed CSS while reading the page. EPUB and PDF retain bold/italic, underline/strikethrough, super/subscripts, alignment, relative font sizes, line height, letter spacing, paragraph indentation and vertical margins. Accent colors and highlights are preserved, while the reader's base text color is omitted to avoid copying white night-mode text onto a white page. Fonts use portable serif/sans-serif/monospace families; font files are not embedded.
 
 Nested formatting overrides are respected, including normal text inside a bold/italic span. Inline formatting inside major headings is retained. Ordered lists preserve their start number. FB2 maps supported styling to strong/emphasis/strikethrough/sup/sub/code, retains explicit line breaks and preformatted indentation, and keeps list markers. FB2 does not support the full CSS model: underline, exact sizes, colors, alignment and spacing are not faithfully transferable. Line breaks inside FB2 table cells are represented by separators.
 

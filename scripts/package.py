@@ -5,6 +5,7 @@ from zipfile import ZipFile, ZIP_DEFLATED
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNTIME = (
+    "scan-pdf.js", "scan-store.js", "scan-background.js", "scan-content.js",
     "manifest.json", "core.js", "content.js", "background.js",
     "epub.js", "popup.html", "popup.css", "popup.js",
     "metadata.html", "metadata.js", "metadata.css",
@@ -13,7 +14,7 @@ RUNTIME = (
 )
 SOURCE = RUNTIME + (
     "README.md", ".gitignore", "docs/INSTALL-XPI.md", "docs/TESTING.md",
-    "scripts/package.py", "tests/core.test.cjs", "tests/formats.browser.cjs", "tests/styles.browser.cjs",
+    "scripts/package.py", "tests/core.test.cjs", "tests/formats.browser.cjs", "tests/styles.browser.cjs", "tests/scans.browser.cjs",
 )
 
 def build():

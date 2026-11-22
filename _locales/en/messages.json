@@ -168,7 +168,7 @@
     "message": "Table of contents"
   },
   "subtitle": {
-    "message": "Version 0.6.1 · images and automatic capture"
+    "message": "Version 0.7.0 · images and automatic capture"
   },
   "openBook": {
     "message": "Open a book in the Litres reader."
@@ -283,5 +283,50 @@
   },
   "chooseCover": {
     "message": "Choose cover image"
+  },
+  "pdfNoPages": {
+    "message": "No PDF page images found. Wait for the reader to load."
+  },
+  "pdfLoading": {
+    "message": "Page images are still loading. Resume capture when they are visible."
+  },
+  "pdfLargePage": {
+    "message": "A page exceeds the supported size (32 megapixels). Reduce reader zoom."
+  },
+  "pdfUnreadable": {
+    "message": "The browser does not allow reading this page image."
+  },
+  "pdfPageChanged": {
+    "message": "A page changed during capture. Resume from the current position."
+  },
+  "pdfSavedPage": {
+    "message": "Saved page"
+  },
+  "pdfTimeout": {
+    "message": "PDF page loading timed out. Check the reader and resume."
+  },
+  "pdfUnsupported": {
+    "message": "This PDF reader layout is not supported."
+  },
+  "pdfSizeChanged": {
+    "message": "Reader size or zoom changed. Restore it and restart capture."
+  },
+  "pdfFinished": {
+    "message": "Reached the end of the available PDF pages."
+  },
+  "pdfMissing": {
+    "message": "Capture all available pages from the beginning to the end before exporting. Missing pages:"
+  },
+  "pdfNotFinished": {
+    "message": "The end of the available document has not been reached. Resume automatic capture."
+  },
+  "pdfPageCount": {
+    "message": "Saved PDF pages:"
+  },
+  "pdfRasterHelp": {
+    "message": "PDF pages, including scans, are saved as images in their displayed resolution. No OCR or text layer. Keep the tab active and the zoom unchanged. Export becomes available after a complete pass over the available pages."
+  },
+  "pdfStorageLimit": {
+    "message": "This PDF capture reached the 250 MB storage limit."
   }
 }

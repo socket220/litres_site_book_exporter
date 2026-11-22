@@ -82,6 +82,7 @@ async function dispatch(m,sender) {
  throw Error(L.msg('Unknown_command'));
 }
 browser.runtime.onMessage.addListener((m,sender)=>{
+ if(['PDF_SAVE','PDF_END','PDF_REPORT','PDF_EXPORT'].includes(m.type))return scanMessage(m,sender);
  if(m.type==='IMAGE')return imageRequest(m,sender).catch(e=>({ok:false,error:e.message}));
  const result=queue.then(()=>dispatch(m,sender)).catch(e=>({ok:false,error:e.message}));
  queue=result.then(()=>undefined);return result;
